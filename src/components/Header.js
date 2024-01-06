@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {Link, NavLink, useNavigate } from 'react-router-dom';
-import Logo from '../assets/logo.png';
+import Logo from '../assets/noudev.png'
+import Logo2 from '../assets/noudevdark.png'
+
 
 export const Header = () => {
   const [hidden, setHidden]=useState(true);
   const [darkMode, setDarkMode ]= useState(false);
   const navigate = useNavigate();
+
+    // Define the image source based on darkMode
+    const logoSource = darkMode ? Logo2 : Logo;
 
   useEffect(()=> {
     localStorage.setItem("darkMode", JSON.stringify(darkMode)); if(darkMode){
@@ -31,9 +36,15 @@ export const Header = () => {
   return (
     <header>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
           <Link to="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src={Logo} className="mr-2 h-8 sm:h-9" alt="Cinemate" />
+            
+          <picture >
+              <source srcSet={logoSource}    alt="Cinemate" media="(prefers-color-scheme: dark)"/>
+              <img src={logoSource} className="mr-2 h-10 sm:h-10 " alt="Cinemate" />
+         </picture>
+
+            {/* <img src={Logo} className="mr-2 h-15 sm:h-9 dark:" alt="Cinemate" /> */}
             <span className="self-cen-ter text-2xl font-semibold whitespace-nowrap dark:text-white">Cinemate</span>
           </Link>
           <div id="mobile-nav" className="flex md:order-2">
